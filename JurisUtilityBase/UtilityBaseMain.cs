@@ -303,6 +303,8 @@ namespace JurisUtilityBase
                 //quit and release
                 xlApp.Quit();
 
+                UpdateStatus("Updating Database", count, lastUsedRow * 2);
+
                 foreach (CliObj cl in clients)
                 {
                     string sql = "";
@@ -334,7 +336,7 @@ namespace JurisUtilityBase
                     if (cl.updateCliName && cl.changeMatter)
                     {
                         sql = "update matter set MatNickName = left('" + cl.newName + "', 30), MatReportingName = left('" + cl.newName + "', 30) " +
-                            " where matclinbr in (select clisysnbr from client where cast(dbo.jfn_FormatClientCode(clicode) as varchar(8)) = '" + cl.clicode + "')";
+                            " where matclinbr in (select clisysnbr from client where cast(dbo.jfn_FormatClientCode(clicode) as varchar(8)) = '" + cl.clicode + "') and matcode = '000000000000'";
                         _jurisUtility.ExecuteNonQuery(0, sql);
                     }
                     UpdateStatus("Updating Database", count, lastUsedRow * 2);
