@@ -128,7 +128,15 @@ namespace JurisUtilityBase
                             case 2:
                                 cli = new CliObj();
                                 if (xlRange.Cells[i, j] != null && xlRange.Cells[i, j].Value2 != null)
+                                {
                                     cli.clicode = xlRange.Cells[i, j].Value2.ToString();
+                                    if (cli.clicode.Length < 5)
+                                    {
+                                        int diff = 5 - cli.clicode.Length;
+                                        for (int a = 1; a <= diff; a++)
+                                            cli.clicode = "0" + cli.clicode;
+                                    }
+                                }
                                 else
                                     cliCodeExists = false;
                                 break;
